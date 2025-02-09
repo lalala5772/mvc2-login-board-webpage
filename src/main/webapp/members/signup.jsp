@@ -409,16 +409,11 @@ body {
 			}
 
 			// 양식 확인
-			const idRegex = /^(?=.*[a-z])[a-z0-9_]{8,20}$/;
 			const pwRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
 			const phonNumRegex = /^010[- ]?\d{4}[- ]?\d{4}$/;
 			const emailRegex = /(\w+@\w+.\w+$)|(\w+@\w+.\w+\w+$)/;
 
-			if (!idRegex.test(userid.value)) {
-				Swal
-						.fire("ID는 소문자가 반드시 포함되어야 하며, 숫자, _포함 가능합니다. 8~20글자 입력해주세요.");
-				return false;
-			}
+			
 			if (!pwRegex.test(password.value)) {
 				Swal.fire("Password는 대문자,소문자,숫자를 포함하여 8자 이상으로 입력해주세요.");
 				return false;

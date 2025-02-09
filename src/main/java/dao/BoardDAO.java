@@ -34,18 +34,31 @@ public class BoardDAO {
 		return ds.getConnection();
 
 	}
+	
+	public int getNextVal() throws Exception{
+		String sql = "select board_seq.nextval from dual";
+		try (Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery()) {
+
+			rs.next();
+
+			return rs.getInt(1);
+		}
+	}
 
 	public int insert(BoardDTO dto) throws Exception {
-		String sql = "insert into board (seq, writer, title, contents, write_date, view_count) values (board_seq.nextval, ?, ?, ?, sysdate, 0)";
+		String sql = "insert into board (seq, writer, title, contents, write_date, view_count) values (?, ?, ?, ?, sysdate, 0)";
 
 		try (Connection con = this.getConnection(); 
 				PreparedStatement pstat = con.prepareStatement(sql)) {
 
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
-			pstat.setString(1, dto.getWriter());  
-			pstat.setString(2, dto.getTitle());  
-			pstat.setString(3, dto.getContents()); 
+			pstat.setInt(1, dto.getSeq());  
+			pstat.setString(2, dto.getWriter());  
+			pstat.setString(3, dto.getTitle());  
+			pstat.setString(4, dto.getContents()); 
 
 			return pstat.executeUpdate(); 
 		}
@@ -227,7 +240,7 @@ public class BoardDAO {
 		return navi.toString();
 	}
 
-	private int getRecordTotalCount() throws Exception{
+	public int getRecordTotalCount() throws Exception{
 		String sql = "select count(*) from board";
 
 		try(Connection con =this.getConnection();
@@ -237,26 +250,6 @@ public class BoardDAO {
 			return rs.getInt(1);	
 		}
 	}
-
-	public static void main(String[] args) throws Exception {
-
-		String sql = "insert into board values(board_seq.nextval, ?, ?, ?, sysdate, 0)";
-		try(Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","exam", "exam");
-				PreparedStatement pstat = con.prepareStatement(sql);){
-
-			for (int i=1;i<=144;i++) {
-				pstat.setString(1, "writer");
-				pstat.setString(2, "title");
-				pstat.setString(3, "contents");
-				pstat.executeUpdate();
-
-				Thread.sleep(300);
-				System.out.println(i+ 1 +"번째 데이터 입력");
-			}
-		}
-
-
-
-	}
+	
 
 }

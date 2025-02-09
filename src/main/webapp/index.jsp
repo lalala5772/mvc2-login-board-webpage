@@ -332,20 +332,7 @@ body {
 				<div class="title">
 					<h2>추천게임</h2>
 				</div>
-				<!-- <div class="recommendGame">
-					<div class="game-card">
-						<img src="https://picsum.photos/285/200" alt="게임 1">
-					</div>
-					<div class="game-card">
-						<img src="https://picsum.photos/285/200" alt="게임 2">
-					</div>
-					<div class="game-card">
-						<img src="https://picsum.photos/285/200" alt="게임 3">
-					</div>
-					<div class="game-card">
-						<img src="https://picsum.photos/285/200" alt="게임 4">
-					</div>
-				</div> -->
+				
 				<div class="recommendGame">
 					<div class="game-card">
 						<a href="game1.jsp"> <img src="https://picsum.photos/285/200"

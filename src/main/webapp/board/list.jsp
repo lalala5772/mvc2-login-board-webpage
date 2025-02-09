@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -153,8 +155,8 @@ h2 {
 						<c:forEach var="board" items="${list}">
 							<tr>
 								<td class="seq">${board.seq}</td>
-								<td class="title"><a
-									href="${pageContext.request.contextPath}/details.board?id=${board.seq}&cpage=${cpage}">${board.title}</a>
+								<td class="title">
+									<a href="${pageContext.request.contextPath}/details.board?id=${board.seq}&cpage=${cpage}">${board.title}</a>
 								</td>
 								<td class="author">${board.writer}</td>
 								<td class="date">${board.displayTime}</td>
@@ -174,19 +176,41 @@ h2 {
 		</table>
 
 		<div class="pagination">
-			<!-- <a href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a><a
-				href="#">5</a> <a href="#">6</a> <a href="#">7</a> <a href="#">8</a>
-			<a href="#">9</a><a href="#">10</a> -->
 			${navi}
 		</div>
+		 <!-- 페이지 네비게이션 -->
+    <%-- <div class="pagination">
+        <c:forEach var="pageNum" items="${pageNumbers}">
+            <a href="javascript:void(0);" class="page-link" data-page="${pageNum}">${pageNum}</a>
+        </c:forEach>
+    </div> --%>
+		
 
 		<button class="write-btn">
 			<a href="/towrite.board"> 작성하기</a>
 		</button>
 	</div>
+	
+	<!-- <script>
+        $(document).ready(function () {
+            // 현재 페이지 세션 저장
+            let savedPage = sessionStorage.getItem("currentPage");
+            if (savedPage) {
+                $(".page-link[data-page='" + savedPage + "']").addClass("active");
+            }
+
+            $(".page-link").on("click", function () {
+                /* let selectedPage = $(this).data("page"); */
+                let selectedPage = $(this).html();
+                /* alert(selectPage); */
+                sessionStorage.setItem("currentPage", selectedPage);
+                window.location.href = "/list.board?cpage=" + selectedPage;
+            }); 
+            
+        });
+    </script> -->
 
 	<script type="text/javascript">
-    // 페이지가 로드되면 새로고침을 강제로 실행합니다.
     if (performance.navigation.type === 2) { // 페이지가 새로고침되었는지 확인
         window.location.reload(); // 페이지 새로고침
     }

@@ -90,7 +90,13 @@
 <body>
 	<div class="write-container">
 	<h2>글 작성하기</h2>
-	<form id="write-form" action="/write.board" method="POST">
+	<form id="write-form" action="/write.board" method="POST" enctype="multipart/form-data">
+		
+	
+	<div class="form-group">
+			<label for="file">파일업로드</label>
+			<input type="file" name="file" id="file">
+		</div>
 		<div class="form-group">
 			<label for="title">제목</label>
 			<input type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
